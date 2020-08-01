@@ -5,21 +5,25 @@ import './app/layout/styles.css';
 import App from './app/layout/App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import { configureStore } from './app/store/configureStore';
 
-// hot module replacement
+const store = configureStore();
 
 const rootEl = document.getElementById('root');
 
 function render() {
   ReactDOM.render(
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>,
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+      </Provider>,
     rootEl
   );
 }
 
-
+// hot module replacement
 if (module.hot) {
     module.hot.accept('./app/layout/App', () => {
         setTimeout(render);
